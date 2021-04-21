@@ -1,0 +1,22 @@
+name: Test Capstone Frontend
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Test
+        run: |
+          npm run build
+
+      - name: Run tests
+        run: |
+          npm run start
