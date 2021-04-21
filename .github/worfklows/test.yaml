@@ -1,4 +1,4 @@
-name: Test Capstone Frontend
+name: Test Capstone
 on:
   push:
     branches:
