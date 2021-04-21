@@ -6,6 +6,7 @@
   "scripts": {
     "prebuild": "rm -rf ./node_modules && npm i",
     "build": "",
+    "start": "npm run test",
     "test": "./node_modules/.bin/cucumber-js -p default"
   },
   "author": "",
