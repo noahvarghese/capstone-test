@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import AwsWrapper from "../util/AwsWrapper";
 dotenv.config(); 
 
-const DEV = JSON.parse(process.env.DEV!) as boolean;
+const RUN_LOCAL = JSON.parse(process.env.RUN_LOCAL!) as boolean;
 
 const getDriver = (options?: any): ThenableWebDriver => {
     const capabilities: Capabilities = Capabilities.chrome();
@@ -32,7 +32,7 @@ Before(async function (this: BaseWorld) {
 
     let driver: ThenableWebDriver | WebDriver;
 
-    if ( DEV ) {
+    if ( RUN_LOCAL ) {
         driver = getDriver();
     }
     else {
