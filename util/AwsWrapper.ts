@@ -36,10 +36,9 @@ export default class AwsWrapper {
         if ( !AwsWrapper.aws ) {
             AwsWrapper.Init();
         }
-        if ( !AwsWrapper._driver) {
-            await AwsWrapper.SetDriver();
-        }
-
+        
+        await AwsWrapper.SetDriver();
+        
         return AwsWrapper._driver!;
     }
 }
