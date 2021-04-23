@@ -1,44 +1,73 @@
-import AWS from "aws-sdk";
+import AWS, { DeviceFarm } from "aws-sdk";
 import dotenv from "dotenv";
-import { Builder, ThenableWebDriver } from "selenium-webdriver";
-dotenv.config(); 
+import {
+    Builder,
+    Capabilities,
+    ThenableWebDriver,
+    WebDriver,
+} from "selenium-webdriver";
+dotenv.config();
 
 export default class AwsWrapper {
-    private static aws: any;
-    private static _driver: ThenableWebDriver;
+    private static loaded = false;
+    private static _driver: ThenableWebDriver | WebDriver;
+    private static DeviceFarm: {
+        projectArn: string;
+        deviceFarm?: DeviceFarm;
+    } = {
+        projectArn: "",
+        deviceFarm: undefined,
+    };
 
-    private static Init = () => {
-        AwsWrapper.aws = AWS;
-
-        AwsWrapper.aws.config.credentials = {
-            accessKeyId: process.env.AWS_ACCESS_KEY_ID!, 
-            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY! 
+    static Init = () => {
+        AwsWrapper.loaded = true;
+        AWS.config.credentials = {
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
         };
-    }
 
-    private static SetDriver = async () => {
-        const projectArn = process.env.ARN!;
-        const deviceFarm = new AwsWrapper.aws.DeviceFarm({ region: "ca-central-1" });
-
-        const url = await deviceFarm.createTestGridUrl({
-            projectArn,
-            expiresInSeconds: 600
+        AwsWrapper.DeviceFarm.projectArn = process.env.AWS_DEVICE_FARM_ARN!;
+        AwsWrapper.DeviceFarm.deviceFarm = new AWS.DeviceFarm({
+            region: "us-west-2",
         });
+    };
 
-        AwsWrapper._driver = new Builder()
-                                .usingServer(url)
-                                .withCapabilities({ browserName: "chrome", w3c: false })
-                                .build();
-    }
+    private static getUrlResult = async (): Promise<any> => {
+        return new Promise((res, rej) => {
+            const deviceFarm = AwsWrapper.DeviceFarm.deviceFarm as any;
 
+            deviceFarm.createTestGridUrl(
+                {
+                    projectArn: AwsWrapper.DeviceFarm.projectArn,
+                    expiresInSeconds: 600,
+                },
+                (err: any, data: any) => {
+                    if (err) {
+                        rej(err);
+                    }
 
-    static getDriver = async (): Promise<ThenableWebDriver> => {
-        if ( !AwsWrapper.aws ) {
-            AwsWrapper.Init();
-        }
-        
-        await AwsWrapper.SetDriver();
-        
-        return AwsWrapper._driver!;
-    }
+                    res(data);
+                }
+            );
+        });
+    };
+
+    static SetDriver = async () => {
+        const urlResult = await AwsWrapper.getUrlResult();
+
+        // w3c: false,
+        const driver = await new Builder()
+            .usingServer(urlResult.url)
+            .withCapabilities({
+                browserName: "chrome",
+            })
+            .build();
+
+        AwsWrapper._driver = driver;
+        return;
+    };
+
+    static getDriver = (): ThenableWebDriver | WebDriver => {
+        return AwsWrapper._driver;
+    };
 }
