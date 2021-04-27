@@ -1,7 +1,6 @@
 import { Given, When, Then } from "@cucumber/cucumber";
 import { expect } from "chai";
 import BaseWorld from "../support/base_world";
-import Logs, { LogLevels } from "../util/logs";
 import { client, server } from "../util/permalink";
 
 Given("the user has chosen an environment", function (this: BaseWorld) {
