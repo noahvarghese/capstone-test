@@ -1,14 +1,8 @@
 import { Before, After } from "@cucumber/cucumber";
-import {
-    Builder,
-    Capabilities,
-    ThenableWebDriver,
-    WebDriver,
-} from "selenium-webdriver";
-import BaseWorld from "../support/BaseWorld";
-import aws from "aws-sdk";
+import { Builder, Capabilities, ThenableWebDriver } from "selenium-webdriver";
+import BaseWorld from "../support/base_world";
 import dotenv from "dotenv";
-import AwsWrapper from "../util/AwsWrapper";
+import AwsWrapper from "../util/aws_wrapper";
 dotenv.config();
 
 const RUN_LOCAL = JSON.parse(process.env.RUN_LOCAL!) as boolean;

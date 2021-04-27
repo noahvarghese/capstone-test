@@ -7,7 +7,6 @@ import {
     ThenableWebDriver,
     WebDriver,
 } from "selenium-webdriver";
-require("chromedriver");
 
 Given(
     "the user has navigated to {string}",
