@@ -8,9 +8,9 @@ I have seperated it out into 3 repositories so as to prevent a clutter of files.
 [capstone-client, capstone-server, capstone-test]
 
 The client and server are the frontend and backend respectively,
-and each may hold some unit tests solely applicable to the scope of that component.
+and each may hold some unit tests, and some integration tests that are backend/frontend specific.
 
-Any tests involving both the frontend and the backend will be located in the tests repo.
+Any end-to-end tests will be located in the tests repo.
 
 Documentation - mockups, ERD, class diagrams are currently in my private DropBox.
 
