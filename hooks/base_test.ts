@@ -19,7 +19,8 @@ const getDriver = (): ThenableWebDriver | undefined => {
             .forBrowser("chrome")
             .setChromeOptions(new chrome.Options().headless())
             .build();
-
+        console.log("HERE")
+        console.log(driver);
         return driver;
     }
 
