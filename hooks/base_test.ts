@@ -10,6 +10,7 @@ const getDriver = (): ThenableWebDriver | undefined => {
     const capabilities: Capabilities = Capabilities.chrome();
 
     capabilities.set("chromeOptions", {w3c: false});
+    console.log("HELLO", process.env);
 
     if (process.env.TEST_ENV === "CI") {
 
