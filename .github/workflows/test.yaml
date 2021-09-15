@@ -25,8 +25,10 @@ jobs:
       #   run: |
       #     export DISPLAY=:99
       #     chromedriver --url-base=/wd/hub &
-      # - name: check chrome version
-      #   run: google-chrome-stable --version
+      - name: check chromedriver version
+        run: chromedriver --version
+      - name: check chrome version
+        run: google-chrome-stable --version
       - name: install dependencies
         run: npm i
       - name: execute tests
