@@ -7,6 +7,7 @@ export default class BaseWorld extends World {
 
     constructor(options: IWorldOptions) {
         super(options);
+        this._props = {};
     }
 
     setDriver = (driver: ThenableWebDriver | WebDriver): void => {
@@ -22,12 +23,12 @@ export default class BaseWorld extends World {
         throw new Error("Driver not intialized.");
     };
 
-    setCustomProp = (key: string, value: any): void => {
+    setCustomProp = <T>(key: string, value: T): void => {
         this._props[key] = value;
         return;
     };
 
-    getCustomProp = (key: string): any => {
+    getCustomProp = <T>(key: string): T => {
         return this._props[key];
     };
 }

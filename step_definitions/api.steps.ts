@@ -8,7 +8,8 @@ Given("the user has chosen an environment", function (this: BaseWorld) {
 });
 
 When(
-    "a user has navigated to the root of the backend",{ timeout: 10000 },
+    "a user has navigated to the root of the backend",
+    { timeout: 10000 },
     async function (this: BaseWorld) {
         const driver = this.getDriver();
         await driver.get(server);
