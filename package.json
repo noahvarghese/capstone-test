@@ -6,6 +6,7 @@
   "scripts": {
     "prebuild": "rm -rf ./node_modules && npm i",
     "build": "",
+    "dev": "nodemon -e ts,.env,js --exec npm start",
     "start": "npm run test",
     "test": "./node_modules/.bin/cucumber-js -p default -f @cucumber/pretty-formatter",
     "test-windows": ".\\node_modules\\.bin\\cucumber-js -p default -f @cucumber/pretty-formatter",
@@ -24,6 +25,7 @@
     "chai": "^4.3.0",
     "chromedriver": "^88.0.0",
     "dotenv": "^8.2.0",
+    "nodemon": "^2.0.12",
     "selenium-webdriver": "^4.0.0-beta.1",
     "ts-node": "^9.1.1",
     "tsc": "^1.20150623.0",
