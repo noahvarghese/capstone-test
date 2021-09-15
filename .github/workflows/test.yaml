@@ -18,6 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
+      - uses: nanasess/setup-chromedriver@master
       - name: install dependencies
         run: npm i
       - name: execute tests
