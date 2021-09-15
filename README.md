@@ -23,7 +23,28 @@ They may be moved into their own repo at the end of this to showcase all parts o
 -   Cucumber
 -   Selenium
 -   CI/CD
--   AWS (Device Farm, CodePipeline)
+-   GitHub Actions
+
+## What it does
+
+This will be used to test against the production environment hosted on an EC2 instance.
+Ideally this would run on a qa environment triggered by a push to qa, and then on success a push to production would be triggered.
+
+## Ideal Application development flow (applies to both capstone-client and capstone-server)
+
+1. Pull Request to develop
+2. CI is run
+3. Pull request is approved
+4. CI and CD is run
+5. Pushes to QA
+5. A job is triggered to execute this test against QA
+6. After success, trigger a push from develop to main
+7. Run CI and CD for main
+
+### Notes
+
+develop branches should require a pull request
+push to main should be done by a special account that only it and the repository owner can commit to
 
 ## Environment
 

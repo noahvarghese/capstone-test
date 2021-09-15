@@ -1,0 +1,24 @@
+name: End to End Tests
+
+on:
+  push:
+   branches: ["*"]
+
+jobs:
+  test:
+    env:
+      ENV_DEV_CLIENT: ${{ secrets.ENV_DEV_CLIENT }}
+      ENV_LOCAL_CLIENT: ${{ secrets.ENV_LOCAL_CLIENT }}
+      ENV_PROD_CLIENT: ${{ secrets.ENV_PROD_CLIENT }}
+      ENV_LOCAL_SERVER: ${{ secrets.ENV_LOCAL_SERVER }}
+      ENV_DEV_SERVER: ${{ secrets.ENV_DEV_SERVER }}
+      ENV_PROD_SERVER: ${{ secrets.ENV_PROD_SERVER }}
+      TARGET_ENV: ${{ secrets.TARGET_ENV }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - name: install dependencies
+        run: npm i
+      - name: execute tests
+        run: npm start

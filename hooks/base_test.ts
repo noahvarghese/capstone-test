@@ -2,10 +2,8 @@ import { Before, After } from "@cucumber/cucumber";
 import { Builder, Capabilities, ThenableWebDriver } from "selenium-webdriver";
 import BaseWorld from "../support/base_world";
 import dotenv from "dotenv";
-import AwsWrapper from "../util/aws_wrapper";
 dotenv.config();
 
-const RUN_LOCAL = JSON.parse(process.env.RUN_LOCAL!) as boolean;
 
 const getDriver = (): ThenableWebDriver => {
     const capabilities: Capabilities = Capabilities.chrome();
@@ -24,25 +22,9 @@ const getDriver = (): ThenableWebDriver => {
     return driver;
 };
 
-Before(function (this: BaseWorld) {
-    if (RUN_LOCAL === false) {
-        AwsWrapper.Init();
-    }
-});
-
-// Set crazy timeouts so the session gets created and the return value is received
-Before({ timeout: 120000 }, async function (this: BaseWorld) {
-    if (RUN_LOCAL === false) {
-        await AwsWrapper.SetDriver();
-    }
-});
 
 Before(async function (this: BaseWorld) {
-    if (RUN_LOCAL) {
         this.setDriver(getDriver());
-    } else {
-        this.setDriver(AwsWrapper.getDriver());
-    }
 });
 
 // Set crazy timeouts so the session gets destroyed and the return is received

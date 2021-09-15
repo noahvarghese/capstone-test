@@ -7,7 +7,7 @@ Given("the user has chosen an environment", function (this: BaseWorld) {
     return;
 });
 
-When("the user navigates to the backend", async function (this: BaseWorld) {
+When("a user has navigated to the root of the backend", async function (this: BaseWorld) {
     const driver = this.getDriver();
     await driver.get(server);
 });
