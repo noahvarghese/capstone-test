@@ -79,9 +79,8 @@ export default class Logs {
     static addLog = (message: any | any, logLevel: LogLevels) => {
         if (logLevel <= Logs.logLevel) {
             try {
-                const { prefix, consoleFunction }: LogData = Logs.getLogData(
-                    logLevel
-                );
+                const { prefix, consoleFunction }: LogData =
+                    Logs.getLogData(logLevel);
 
                 consoleFunction(prefix, message);
             } catch (e) {

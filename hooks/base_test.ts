@@ -5,11 +5,10 @@ import BaseWorld from "../support/base_world";
 import dotenv from "dotenv";
 dotenv.config();
 
-
 const getDriver = (): ThenableWebDriver | undefined => {
     const capabilities: Capabilities = Capabilities.chrome();
 
-    capabilities.set("chromeOptions", {w3c: false});
+    capabilities.set("chromeOptions", { w3c: false });
 
     if (process.env.TEST_ENV === "LOCAL") {
         const driver = new Builder()
@@ -21,15 +20,14 @@ const getDriver = (): ThenableWebDriver | undefined => {
     }
 
     return new Builder()
-            .withCapabilities(capabilities)
-            .forBrowser("chrome")
-            .setChromeOptions(new chrome.Options().headless())
-            .build();
+        .withCapabilities(capabilities)
+        .forBrowser("chrome")
+        .setChromeOptions(new chrome.Options().headless())
+        .build();
 };
 
-
 Before(async function (this: BaseWorld) {
-        this.setDriver(getDriver()!);
+    this.setDriver(getDriver()!);
 });
 
 // Set crazy timeouts so the session gets destroyed and the return is received

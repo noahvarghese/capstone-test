@@ -6,6 +6,8 @@
   "scripts": {
     "prebuild": "rm -rf ./node_modules && npm i",
     "build": "",
+    "format": "prettier --write **/*.ts",
+    "format-check": "prettier --check **/*.ts",
     "dev": "nodemon -e ts,.env,js --exec npm start",
     "start": "npm run test",
     "test": "./node_modules/.bin/cucumber-js -p default -f @cucumber/pretty-formatter",
@@ -26,6 +28,7 @@
     "chromedriver": "^88.0.0",
     "dotenv": "^8.2.0",
     "nodemon": "^2.0.12",
+    "prettier": "^2.4.0",
     "selenium-webdriver": "^4.0.0-beta.1",
     "ts-node": "^9.1.1",
     "tsc": "^1.20150623.0",
