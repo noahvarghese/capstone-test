@@ -18,17 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      # - uses: nanasess/setup-chromedriver@master
-      #   with: 
-      #     chromedriver-version: '93.0.4577.63'
-      # - name: start chromedriver
-      #   run: |
-      #     export DISPLAY=:99
-      #     chromedriver --url-base=/wd/hub &
-      - name: check chromedriver version
-        run: chromedriver --version
-      - name: check chrome version
-        run: google-chrome-stable --version
       - name: install dependencies
         run: npm i
       - name: execute tests
