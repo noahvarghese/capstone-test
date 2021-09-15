@@ -10,28 +10,21 @@ const getDriver = (): ThenableWebDriver | undefined => {
     const capabilities: Capabilities = Capabilities.chrome();
 
     capabilities.set("chromeOptions", {w3c: false});
-    // console.log("HELLO", process.env);
 
-    if (process.env.TEST_ENV === "CI") {
-
+    if (process.env.TEST_ENV === "LOCAL") {
         const driver = new Builder()
+            .withCapabilities(capabilities)
+            .forBrowser("chrome")
+            .build();
+
+        return driver;
+    }
+
+    return new Builder()
             .withCapabilities(capabilities)
             .forBrowser("chrome")
             .setChromeOptions(new chrome.Options().headless())
             .build();
-        console.log("HERE")
-        console.log(driver);
-        return driver;
-    }
-
-    else if (process.env.TEST_ENV === "LOCAL") {
-        const driver = new Builder()
-            .withCapabilities(capabilities)
-            .forBrowser("chrome")
-            .build();
-
-        return driver;
-    }
 };
 
 
