@@ -15,6 +15,8 @@ export async function deleteModel<T>(
     if (model !== undefined) {
         await connection.manager.remove<T>(model);
         this.setCustomProp<undefined>(key, undefined);
+    } else {
+        throw new Error(`Model for ${key} not found in store`);
     }
 }
 

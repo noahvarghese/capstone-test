@@ -37,8 +37,8 @@ After("@database", async function (this: BaseWorld) {
 });
 
 After({ tags: "@auth" }, async function (this: BaseWorld) {
+    const connection = this.getConnection();
     if (this.hasTag("@signup")) {
-        const connection = this.getConnection();
         const userAttr = this.getCustomProp<UserAttributes>("userAttributes");
 
         const user = await connection.manager.findOneOrFail(User, {
@@ -57,5 +57,13 @@ After({ tags: "@auth" }, async function (this: BaseWorld) {
     } else {
         await deleteModel.call(this, "user");
     }
-    await deleteModel.call(this, "business");
+
+    if (this.hasTag("@signup") && !this.hasTag("@business_exists")) {
+        const business = await connection.manager.findOneOrFail(Business, {
+            where: { email: businessAttributes.email },
+        });
+        await connection.manager.remove(Business, business);
+    } else {
+        await deleteModel.call(this, "business");
+    }
 });

@@ -44,12 +44,12 @@ export async function submitForm<T>(
                 const year = value.getFullYear();
                 const month =
                     (value.getMonth().toString().length === 1 ? "0" : "") +
-                    value.getMonth();
+                    (Number(value.getMonth()) < 12 ? value.getMonth() + 1 : 1);
                 const day =
-                    (value.getDay().toString().length === 1 ? "0" : "") +
-                    value.getDay();
+                    (value.getDate().toString().length === 1 ? "0" : "") +
+                    value.getDate();
 
-                value = `${year}-${month}-${day}`;
+                value = `${month}${day}${year}`;
             }
 
             await inputEl.sendKeys(value);
