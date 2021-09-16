@@ -5,6 +5,15 @@ on:
    branches: ["*"]
 
 jobs:
+  check-formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - name: install dependencies
+        run: npm i
+      - name: check formatting
+        run: npm run format-check
   test:
     env:
       ENV_DEV_CLIENT: ${{ secrets.ENV_DEV_CLIENT }}
