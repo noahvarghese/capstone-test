@@ -19,6 +19,10 @@ import Attempt from "./quiz/attempt";
 import Result from "./quiz/result";
 import Read from "./manual/read";
 import Event from "./event";
+import dotenv from "dotenv";
+dotenv.config();
+
+console.log(process.env);
 
 export const connection: ConnectionOptions = {
     database: process.env.DB ?? "",
