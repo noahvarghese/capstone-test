@@ -22,7 +22,6 @@ import Event from "./event";
 import dotenv from "dotenv";
 dotenv.config();
 
-console.log(process.env);
 export const connection: ConnectionOptions = {
     database: process.env.DB ?? "",
     host: process.env.DB_URL ?? "",

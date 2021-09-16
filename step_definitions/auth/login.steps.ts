@@ -36,5 +36,6 @@ Then(
 
         const header = await driver.findElement(By.css("h1"));
         assert.isOk(header);
+        assert.equal(await header.getText(), "Home");
     }
 );
