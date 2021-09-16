@@ -23,6 +23,12 @@ jobs:
       ENV_DEV_SERVER: ${{ secrets.ENV_DEV_SERVER }}
       ENV_PROD_SERVER: ${{ secrets.ENV_PROD_SERVER }}
       TARGET_ENV: ${{ secrets.TARGET_ENV }}
+      DB: ${{ secrets.DB }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_PWD: 4{{ secrets.DB_PWD }}
+      DB_TYPE: ${{ secrets.DB_TYPE }}
+      DB_URL: ${{ secrets.DB_URL }}
+      DB_USER: ${{ secrets.DB_USER }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
