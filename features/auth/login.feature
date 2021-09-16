@@ -1,6 +1,6 @@
 Feature: Login User
 
-@login
+@auth
 @database
 Scenario:
     Given the user has valid credentials 

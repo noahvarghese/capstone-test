@@ -30,6 +30,17 @@ Before(async function (this: BaseWorld) {
     this.setDriver(getDriver()!);
 });
 
+// Load tags into the world
+Before(function (this: BaseWorld, { pickle }) {
+    const newTags = pickle.tags
+        ?.map((tag) => tag.name)
+        .filter((tag) => tag !== null && tag !== undefined) as
+        | string[]
+        | undefined;
+
+    this.setTags(newTags ?? new Array<string>());
+});
+
 // Set crazy timeouts so the session gets destroyed and the return is received
 After({ timeout: 120000 }, async function (this: BaseWorld) {
     await this.getDriver().quit();

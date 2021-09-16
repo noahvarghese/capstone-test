@@ -8,7 +8,7 @@ export async function deleteModel<T>(
     this: BaseWorld,
     key: string
 ): Promise<void> {
-    const connection = this.getCustomProp<Connection>("connection");
+    const connection = this.getConnection();
 
     const model = this.getCustomProp<T | undefined>(key);
 
@@ -23,7 +23,7 @@ export async function createModel<T, X>(
     type: any,
     key: string
 ): Promise<T> {
-    const connection = this.getCustomProp<Connection>("connection");
+    const connection = this.getConnection();
     const attributes = this.getCustomProp<X>(`${key}Attributes`);
 
     let model = connection.manager.create<T>(type, attributes);
@@ -46,7 +46,7 @@ export async function updateModel<T, X>(
     modelName: string,
     attributesToUpdate: Partial<X>
 ) {
-    const connection = this.getCustomProp<Connection>("connection");
+    const connection = this.getConnection();
     let model = this.getCustomProp<T>(modelName);
 
     if (!model) {

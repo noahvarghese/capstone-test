@@ -5,29 +5,28 @@ import { createModel } from "../../util/model_actions";
 import { By } from "selenium-webdriver";
 import { expect, assert } from "chai";
 import { client } from "../../util/permalink";
+import { submitForm } from "../../util/ui_actions";
 
 Given("the user has valid credentials", async function (this: BaseWorld) {
     await createModel.call(this, User, "user");
     this.getDriver().get(client);
 });
 
-When("the user submits their credentials", async function (this: BaseWorld) {
-    const user = this.getCustomProp<UserAttributes>("userAttributes");
-    const driver = this.getDriver();
+When(
+    "the user submits their credentials",
+    { timeout: 10000 },
+    async function (this: BaseWorld) {
+        const user = this.getCustomProp<UserAttributes>("userAttributes");
+        const driver = this.getDriver();
 
-    const emailInput = await driver.findElement(By.id("email"));
-    await emailInput.sendKeys(user.email);
+        await submitForm.call(this, {
+            email: user.email,
+            password: user.password,
+        });
 
-    const passwordInput = await driver.findElement(By.id("password"));
-    await passwordInput.sendKeys(user.password);
-
-    const submitButton = await driver.findElement(
-        By.css("button[type=submit]")
-    );
-    await submitButton.click();
-
-    await driver.sleep(3000);
-});
+        await driver.sleep(3000);
+    }
+);
 
 Then(
     "the user should be redirected to the dashboard",
