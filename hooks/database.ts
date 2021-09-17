@@ -7,7 +7,7 @@ import Business, { BusinessAttributes } from "../models/business";
 import { businessAttributes, userAttributes } from "../sample_data/attributes";
 import { createModel, deleteModel } from "../util/actions/model_actions";
 
-Before("@database", async function (this: BaseWorld) {
+Before({ timeout: 10000, tags: "@database" }, async function (this: BaseWorld) {
     this.setConnection(await createConnection());
 });
 

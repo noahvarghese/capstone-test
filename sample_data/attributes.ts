@@ -20,7 +20,7 @@ import { EventAttributes } from "../models/event";
 
 // Configuration
 export const businessAttributes: BusinessAttributes = {
-    name: "Oakville Windows and Doors",
+    name: "Oakville Windows & Doors",
     code: "Oakville3294",
     email: "varghese.noah@gmail.com",
     phone: "9053393294",
