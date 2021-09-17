@@ -1,6 +1,6 @@
 import { By, WebElement } from "selenium-webdriver";
-import BaseWorld from "../support/base_world";
-import Logs from "../util/logs/logs";
+import BaseWorld from "../../support/base_world";
+import Logs from "../logs/logs";
 
 // Expects that the keys are the ids of the form elements
 export async function submitForm<T>(
@@ -60,7 +60,7 @@ export async function submitForm<T>(
         By.css("button[type=submit]")
     );
     await submitButton.click();
-    await driver.sleep(3000);
+    await driver.sleep(1000);
 }
 
 export async function getElementByText(

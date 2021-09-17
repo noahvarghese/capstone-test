@@ -1,14 +1,12 @@
-import { After, Given, When } from "@cucumber/cucumber";
-import { By } from "selenium-webdriver";
-import Business, { BusinessAttributes } from "../../models/business";
+import { Given, When } from "@cucumber/cucumber";
+import Business from "../../models/business";
 import {
     businessAttributes,
     userAttributes,
 } from "../../sample_data/attributes";
 import BaseWorld from "../../support/base_world";
-import { createModel } from "../../util/model_actions";
-import { client } from "../../util/permalink";
-import { submitForm } from "../../util/ui_actions";
+import { createModel } from "../../util/actions/model_actions";
+import { signup } from "../../util/actions/auth";
 
 const existingBusiness = {
     address: userAttributes.address,
@@ -51,8 +49,6 @@ Given("the user has valid inputs", async function (this: BaseWorld) {
         "details",
         this.hasTag("@business_exists") ? existingBusiness : newBusiness
     );
-    this.getDriver().get(client);
-    await this.getDriver().sleep(1000);
 });
 
 Given("the business is registered", async function (this: BaseWorld) {
@@ -63,14 +59,7 @@ When(
     "a new user registers for an existing business",
     { timeout: 30000 },
     async function (this: BaseWorld) {
-        const driver = this.getDriver();
-
-        const registerBtn = await driver.findElement(
-            By.css("button[type=button]")
-        );
-        registerBtn.click();
-
-        await submitForm.call(this, this.getCustomProp("details"));
+        await signup.call(this, false);
     }
 );
 
@@ -78,23 +67,6 @@ When(
     "a new user registers a new business",
     { timeout: 30000 },
     async function (this: BaseWorld) {
-        const driver = this.getDriver();
-
-        const registerBtn = await driver.findElement(
-            By.css("button[type=button]")
-        );
-        registerBtn.click();
-
-        await driver.sleep(1000);
-
-        const checkbox = await driver.findElement(
-            By.css("input[type=checkbox]")
-        );
-        (
-            await checkbox.findElement(By.xpath("./following-sibling::label"))
-        ).click();
-        // checkbox.click();
-
-        await submitForm.call(this, this.getCustomProp("details"));
+        await signup.call(this, true);
     }
 );

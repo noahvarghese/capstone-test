@@ -5,7 +5,7 @@ import User, { UserAttributes } from "../models/user/user";
 import Event from "../models/event";
 import Business, { BusinessAttributes } from "../models/business";
 import { businessAttributes, userAttributes } from "../sample_data/attributes";
-import { createModel, deleteModel } from "../util/model_actions";
+import { createModel, deleteModel } from "../util/actions/model_actions";
 
 Before("@database", async function (this: BaseWorld) {
     this.setConnection(await createConnection());
@@ -38,7 +38,11 @@ After("@database", async function (this: BaseWorld) {
 
 After({ tags: "@auth" }, async function (this: BaseWorld) {
     const connection = this.getConnection();
-    if (this.hasTag("@signup")) {
+    if (
+        this.hasTag("@signup") ||
+        this.hasTag("@reset_password") ||
+        this.hasTag("@request_reset_password")
+    ) {
         const userAttr = this.getCustomProp<UserAttributes>("userAttributes");
 
         const user = await connection.manager.findOneOrFail(User, {

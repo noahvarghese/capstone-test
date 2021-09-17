@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import BaseWorld from "../support/base_world";
+import BaseWorld from "../../support/base_world";
 import { Connection } from "typeorm";
-import User from "../models/user/user";
+import User from "../../models/user/user";
 
 export async function deleteModel<T>(
     this: BaseWorld,
