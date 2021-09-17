@@ -18,7 +18,9 @@ When("they reset their password", async function (this: BaseWorld) {
 
     // Set to check in then steps
     let user = this.getCustomProp<User>("user");
-    user = await connection.manager.findOneOrFail(User, user);
+    user = await connection.manager.findOneOrFail(User, {
+        where: { email: user.email },
+    });
     this.setCustomProp<User>("user", user);
 });
 
@@ -26,7 +28,7 @@ Then("their password is reset", async function (this: BaseWorld) {
     const user = this.getCustomProp<User>("user");
     const userAttr = this.getCustomProp<UserAttributes>("userAttributes");
 
-    expect(user.comparePassword(userAttr.password)).to.be.equal(true);
+    expect(await user.comparePassword(userAttr.password)).to.be.equal(true);
 });
 
 Then("the token is cleared", async function (this: BaseWorld) {

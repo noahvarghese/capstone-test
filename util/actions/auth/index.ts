@@ -56,7 +56,7 @@ export async function signup(this: BaseWorld, newBusiness: boolean) {
 
     await submitForm.call(this, this.getCustomProp("details"));
     // Needs a longer timeout to account for more backend calls happening
-    await driver.sleep(2000);
+    await driver.sleep(3000);
 }
 
 export async function resetPassword(this: BaseWorld) {
