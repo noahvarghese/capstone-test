@@ -33,7 +33,7 @@ Before({ tags: "@auth" }, async function (this: BaseWorld) {
 });
 
 After("@database", async function (this: BaseWorld) {
-    this.getConnection().close();
+    await this.getConnection().close();
 });
 
 After({ tags: "@auth" }, async function (this: BaseWorld) {
