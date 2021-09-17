@@ -12,7 +12,7 @@ Given("the user has valid credentials", async function (this: BaseWorld) {
 
 When(
     "the user submits their credentials",
-    { timeout: 10000 },
+    { timeout: 20000 },
     async function (this: BaseWorld) {
         await login.call(this);
     }
