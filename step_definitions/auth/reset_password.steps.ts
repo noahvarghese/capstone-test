@@ -6,23 +6,28 @@ import { requestResetPassword, resetPassword } from "../../util/actions/auth";
 
 Given(
     "the user has requested to reset their password",
+    { timeout: 10000 },
     async function (this: BaseWorld) {
         await requestResetPassword.call(this);
     }
 );
 
-When("they reset their password", async function (this: BaseWorld) {
-    const connection = this.getConnection();
+When(
+    "they reset their password",
+    { timeout: 10000 },
+    async function (this: BaseWorld) {
+        const connection = this.getConnection();
 
-    await resetPassword.call(this);
+        await resetPassword.call(this);
 
-    // Set to check in then steps
-    let user = this.getCustomProp<User>("user");
-    user = await connection.manager.findOneOrFail(User, {
-        where: { email: user.email },
-    });
-    this.setCustomProp<User>("user", user);
-});
+        // Set to check in then steps
+        let user = this.getCustomProp<User>("user");
+        user = await connection.manager.findOneOrFail(User, {
+            where: { email: user.email },
+        });
+        this.setCustomProp<User>("user", user);
+    }
+);
 
 Then("their password is reset", async function (this: BaseWorld) {
     const user = this.getCustomProp<User>("user");

@@ -18,6 +18,8 @@ export async function requestResetPassword(this: BaseWorld) {
     await submitForm.call(this, {
         email: this.getCustomProp<User>("user").email,
     });
+
+    await this.getDriver().sleep(3000);
 }
 
 export async function login(this: BaseWorld) {
@@ -85,4 +87,6 @@ export async function resetPassword(this: BaseWorld) {
         { password: newPassword, confirm_password: newPassword },
         false
     );
+
+    await this.getDriver().sleep(3000);
 }
